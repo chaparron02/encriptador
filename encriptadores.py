@@ -8,13 +8,13 @@ Created on Tue Oct 27 16:04:09 2020
 import math
 
 
-def cesarCypher():
+def cesarCypher(mensaje,llave,modo):
 #ahora se implementa un input con el fin de recibir el mensaje a encriptar
  "info del usuario"
  
- mensaje = input("Mensaje: ")
- llave = int(input("¿Que llave desea usar? ")) #la llave es la que encripta el mensaje siendo el numero de veces que la letra se mueve en el abecedario
- modo = input("Desea encriptar o desencriptar:  ") #se usa para saber si el usuario desea desencriptar el mensaje o encriptarlo
+ mensaje = str(mensaje)
+ llave = int(llave) #la llave es la que encripta el mensaje siendo el numero de veces que la letra se mueve en el abecedario
+ modo = str(modo) #se usa para saber si el usuario desea desencriptar el mensaje o encriptarlo
 
  "Caracteres a intercambiar"
  
@@ -34,8 +34,8 @@ def cesarCypher():
             translatedindex =  int(symbolindex - llave)
             
         else:
-            print("formato no valido")
-
+           traduccion = "formato no valido"
+           return traduccion
         
         if translatedindex >=len(codes):
             translatedindex = translatedindex - len(codes)
@@ -51,13 +51,12 @@ def cesarCypher():
         traduccion = traduccion + symbol
         
  if modo == "encriptar" or modo == "encrypt" :       
-     print("el codigo encriptado es: {0} con llave {1}".format(traduccion,llave))
+      return traduccion
      
  elif modo == "desencriptar" or modo =="decrypt":
      
-     print("El codigo traducido es: ",traduccion)
-    
-    
+     traduccion
+     return traduccion
 
 
 
@@ -70,18 +69,16 @@ def reverse(): #codigo que se utiliza para darle la vuelta a un mensaje. Ej: hol
  while i >= 0:
   traduccion = traduccion + mensaje[i]
   i = i - 1
- print(traduccion)
- 
+ return traduccion    
 
-
-    
 
 # Variacion cifrado cesar: cifrado y cifrado invertido     
-def Cesar_rev ():
+def Cesar_rev (mensaje,llave,modo):
     
-    mensaje = input("Mensaje: ")
-    llave = int(input("¿Que llave desea usar? "))
-    modo = input("Desea encriptar o desencriptar:  ")
+    mensaje = str(mensaje)
+    llave = int(llave) 
+    modo = str(modo)
+    
     codes = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890.,?¿ ¡!"
     trad = ""
     
@@ -123,42 +120,48 @@ def Cesar_rev ():
     
     # Impresion final
     if modo == "encriptar" or modo == "encrypt" :       
-        print("el codigo encriptado es: {0} con llave {1}".format(traduccion,llave))
+        traduccion
+        return traduccion
      
     elif modo == "desencriptar" or modo =="decrypt":
      
-       print("El codigo traducido es: ",traduccion)
+        traduccion
+        return traduccion
        
 # cifrado de transposicion
 
-def cifrado_transposicion():
-    message= input("escriba su mensaje: ")
-    key= input ("digite su llave: ")
-    key=int(key)
-    modo = input("diga si encriptar o desencriptar: ")
+def cifrado_transposicion(mensaje,llave,modo):
+    
+    mensaje = str(mensaje)
+    llave = int(llave) 
+    modo = str(modo)
+    
+    
     if modo == "encriptar":
-       ciphertext = [""] * key
-       for column in range(key):
+       ciphertext = [""] * llave
+       for column in range(llave):
         currentindex= column
-        while currentindex < len(message):
-         ciphertext[column] += message[currentindex]
-         currentindex += key
-       cifrado = ''.join(ciphertext)
-       print(cifrado)
+        while currentindex < len(mensaje):
+         ciphertext[column] += mensaje[currentindex]
+         currentindex += llave
+       traduccion = ''.join(ciphertext)
+       traduccion
+       return traduccion
      
     if modo == "desencriptar":
-       numofcolumns = int(math.ceil(len(message) / float(key)))
-       numofrows = key
-       boxes = (numofcolumns * numofrows) - len(message)
+       numofcolumns = int(math.ceil(len(mensaje) / float(llave)))
+       numofrows = llave
+       boxes = (numofcolumns * numofrows) - len(mensaje)
        plaintext = [''] * numofcolumns
        column = 0
        row= 0
-       for symbol in message:
+       for symbol in mensaje:
          plaintext[column] += symbol
          column += 1
          if (column == numofcolumns) or (column == numofcolumns - 1 and row >= numofrows - boxes):
           column = 0
           row += 1
-       cifrado = ''.join(plaintext)
-       print(cifrado)
-     
+       traduccion = ''.join(plaintext)
+       traduccion
+       return traduccion
+    
